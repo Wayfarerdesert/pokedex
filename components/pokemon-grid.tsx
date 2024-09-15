@@ -17,6 +17,7 @@ export function PokemonGrid() {
   const [loading, setLoading] = useState(false);
   const limit = 10;
 
+  // Load more Pokémon from the array
   const loadMorePokemons = async () => {
     setLoading(true);
     const newPokemons = await getPokemonList(limit, offset);
@@ -28,6 +29,16 @@ export function PokemonGrid() {
   useEffect(() => {
     loadMorePokemons();
   }, []);
+
+  // filter text
+  const searchFilter = (pokemonList: any) => {
+    return pokemonList.filter((pokemon: any) =>
+      pokemon.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+  };
+
+  // save the filtered array of objects
+  const filteredPokemonList = searchFilter(pokemonList);
 
   return (
     <>
@@ -49,7 +60,7 @@ export function PokemonGrid() {
       </div>
 
       <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-3 lg:text-left">
-        {pokemonList.map((pokemon: any) => (
+        {filteredPokemonList.map((pokemon: any) => (
           <PokemonCard key={pokemon.name} name={pokemon.name} />
         ))}
       </div>
@@ -60,7 +71,7 @@ export function PokemonGrid() {
           onClick={loadMorePokemons}
           disabled={loading}
         >
-          {loading ? 'Loading...' : 'Load More'}
+          {loading ? "Loading..." : "Load More"}
         </button>
       </div>
     </>
