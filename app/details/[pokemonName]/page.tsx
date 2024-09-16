@@ -17,7 +17,7 @@ export default async function PokemonPage({
       <h1 className="text-4xl text-bold pt-4">
         {pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1)}
       </h1>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div className="flex flex-col md:flex-row md:justify-between">
         <div
           className="m-4"
           style={{ position: "relative", width: "300px", height: "300px" }}
@@ -40,7 +40,7 @@ export default async function PokemonPage({
         </div>
       </div>
 
-      <div className="flex flex-row justify-between p-8 mt-8 space-x-10 border rounded-lg shadow-lg">
+      <div className="flex flex-col md:flex-row justify-between p-8 mt-8 md:pt-12 space-x-10 border rounded-lg shadow-lg">
         <div className="flex flex-col space-y-2">
           {[
             { label: "ID Number", value: pokemonObject.id },
@@ -59,7 +59,7 @@ export default async function PokemonPage({
           ))}
         </div>
 
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col mt-6 md:mt-0 space-y-2">
           <h3 className="font-bold text-lg">Abilities</h3>
           <ul className="list-disc pl-3">
             {pokemonObject.abilities.map((abilityObject: any) => {
@@ -77,7 +77,7 @@ export default async function PokemonPage({
         </div>
       </div>
 
-      <div className="flex-col">
+      <div className="flex-col mx-auto">
         <h3 className="font-bold text-lg mt-10">Stat List</h3>
         {pokemonObject.stats.map((statObject: any) => {
           const statName = statObject.stat.name;
@@ -89,10 +89,10 @@ export default async function PokemonPage({
               style={{ width: "500px" }}
               key={statName}
             >
-              <h3 className="py-3 w-2/4">
+              <h3 className="py-3 w-2/6 md:w-2/4">
                 {statName}: {statValue}
               </h3>
-              <Progress className="w-2/4 m-auto" value={statValue} />
+              <Progress className="w-1/6 sm:w-2/6 md:w-2/4 m-1 md:m-auto" value={statValue} />
             </div>
           );
         })}
