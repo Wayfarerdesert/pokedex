@@ -2,6 +2,7 @@ import React from "react";
 import { getPokemon } from "../../../lib/pokemonAPI";
 import { PokemonImage } from "../../../components/pokemon-image";
 import { Progress } from "@/components/ui/progress";
+import RedirectButton from "@/components/redirect-button";
 
 export default async function PokemonPage({
   params,
@@ -63,8 +64,6 @@ export default async function PokemonPage({
           <ul className="list-disc pl-3">
             {pokemonObject.abilities.map((abilityObject: any) => {
               const abilityName = abilityObject.ability.name;
-
-              // Capitalize the first letter of each ability name
               const formattedAbilityName =
                 abilityName.charAt(0).toUpperCase() + abilityName.slice(1);
 
@@ -97,6 +96,10 @@ export default async function PokemonPage({
             </div>
           );
         })}
+      </div>
+
+      <div className="mt-8">
+        <RedirectButton />
       </div>
     </>
   );
