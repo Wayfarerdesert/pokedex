@@ -13,21 +13,30 @@ export function PokemonGrid() {
   const [offset, setOffset] = useState(0); // Tracks the current offset for pagination
   const [loading, setLoading] = useState(false); // Loading state
   const [totalCount, setTotalCount] = useState(0); // Total Pokémon count from API
-  const limit = 10; // Number of Pokémon to load per request
-
-  // Load more Pokémon from the API
-  const loadMorePokemons = async () => {
+  const limit = 20;
+  // Load Pokémon from the API
+  const loadPokemons = async (initialLoad = false) => {
     setLoading(true);
-    const newPokemons = await getPokemonList(limit, offset);
-    setAllPokemonList((prevList) => [...prevList, ...newPokemons]);
-    setDisplayedPokemonList((prevList) => [...prevList, ...newPokemons]);
-    setOffset((prevOffset) => prevOffset + limit);
+    try {
+      const newPokemons = await getPokemonList(limit, initialLoad ? 0 : offset);
+      if (initialLoad) {
+        setAllPokemonList(newPokemons);
+        setDisplayedPokemonList(newPokemons);
+        setOffset(limit); // Set offset to 20 for the next load
+      } else {
+        setAllPokemonList((prevList) => [...prevList, ...newPokemons]);
+        setDisplayedPokemonList((prevList) => [...prevList, ...newPokemons]);
+        setOffset((prevOffset) => prevOffset + limit);
+      }
+    } catch (error) {
+      console.error("Failed to load Pokémon:", error);
+    }
     setLoading(false);
   };
 
   // Initial load of Pokémon when the component mounts
   useEffect(() => {
-    loadMorePokemons();
+    loadPokemons(true);
   }, []);
 
   // Function to fetch all Pokémon matching the search, even beyond the currently loaded ones
@@ -80,21 +89,23 @@ export function PokemonGrid() {
       </div>
 
       {/* Render Pokémon Grid */}
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-3 lg:text-left">
+      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 md:grid-cols-2 w-full max-w-screen-xl mx-auto">
         {displayedPokemonList.length > 0 ? (
           displayedPokemonList.map((pokemon: any) => (
             <PokemonCard key={pokemon.name} name={pokemon.name} />
           ))
         ) : (
-          <p className="text-center">No Pokémon found matching "{searchText}"</p>
+          <p className="text-center">
+            No Pokémon found matching "{searchText}"
+          </p>
         )}
       </div>
 
       {/* Load More Button */}
-      <div className="text-center">
+      <div className="text-center w-full md:w-auto">
         <button
-          className="group rounded-lg border border-transparent m-6 px-5 py-2 transition-colors dark:border-gray-500 dark:bg-gray-800 hover:border-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 dark:hover:border-gray-600"
-          onClick={loadMorePokemons} // Load more Pokémon when clicked
+          className="group rounded-lg border border-transparent md:m-5 px-5 py-2 transition-colors dark:border-gray-500 dark:bg-gray-800 hover:border-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 dark:hover:border-gray-600 w-full md:w-auto"
+          onClick={() => loadPokemons()} // Load more Pokémon when clicked
           disabled={loading}
         >
           {loading ? "Loading..." : "Load More"}

@@ -17,20 +17,9 @@ export default async function PokemonPage({
       <h1 className="text-4xl text-bold pt-4">
         {pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1)}
       </h1>
-      <div className="flex flex-col md:flex-row md:justify-between">
+      <div className="flex flex-col md:flex-row md:justify-between mb-6">
         <div
-          className="m-4"
-          style={{ position: "relative", width: "300px", height: "300px" }}
-        >
-          <PokemonImage
-            image={
-              pokemonObject.sprites.other["official-artwork"].front_default
-            }
-            name={pokemonName}
-          />
-        </div>
-        <div
-          className="m-4"
+          className="mr-10"
           style={{ position: "relative", width: "300px", height: "300px" }}
         >
           <PokemonImage
@@ -38,42 +27,42 @@ export default async function PokemonPage({
             name={pokemonName + "_shiny"}
           />
         </div>
-      </div>
 
-      <div className="flex flex-col md:flex-row justify-between p-8 mt-8 md:pt-12 space-x-10 border rounded-lg shadow-lg">
-        <div className="flex flex-col space-y-2">
-          {[
-            { label: "ID Number", value: pokemonObject.id },
-            { label: "Weight", value: pokemonObject.weight },
-            { label: "Height", value: pokemonObject.height },
-            {
-              label: "Type",
-              value: pokemonObject.types
-                .map((typeObj: any) => typeObj.type.name)
-                .join(", "),
-            },
-          ].map((item, index) => (
-            <h3 key={index} className="text-lg font-semibold">
-              {item.label}: {item.value}
-            </h3>
-          ))}
-        </div>
+        <div className="flex flex-col md:flex-row justify-between p-8 m-10 md:pt-12 space-x-10 border rounded-lg shadow-lg w-full max-w-screen-xl mx-auto text-center md:text-left">
+          <div className="flex flex-col space-y-2">
+            {[
+              { label: "ID Number", value: pokemonObject.id },
+              { label: "Weight", value: pokemonObject.weight },
+              { label: "Height", value: pokemonObject.height },
+              {
+                label: "Type",
+                value: pokemonObject.types
+                  .map((typeObj: any) => typeObj.type.name)
+                  .join(", "),
+              },
+            ].map((item, index) => (
+              <h3 key={index} className="text-lg font-semibold">
+                {item.label}: {item.value}
+              </h3>
+            ))}
+          </div>
 
-        <div className="flex flex-col mt-6 md:mt-0 space-y-2">
-          <h3 className="font-bold text-lg">Abilities</h3>
-          <ul className="list-disc pl-3">
-            {pokemonObject.abilities.map((abilityObject: any) => {
-              const abilityName = abilityObject.ability.name;
-              const formattedAbilityName =
-                abilityName.charAt(0).toUpperCase() + abilityName.slice(1);
+          <div className="flex flex-col mt-6 md:mt-0 space-y-2">
+            <h3 className="font-bold text-lg">Abilities</h3>
+            <ul className="list-disc pl-3">
+              {pokemonObject.abilities.map((abilityObject: any) => {
+                const abilityName = abilityObject.ability.name;
+                const formattedAbilityName =
+                  abilityName.charAt(0).toUpperCase() + abilityName.slice(1);
 
-              return (
-                <li key={abilityName} className="p-2 text-lg">
-                  {formattedAbilityName}
-                </li>
-              );
-            })}
-          </ul>
+                return (
+                  <li key={abilityName} className="p-2 text-lg">
+                    {formattedAbilityName}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -85,20 +74,22 @@ export default async function PokemonPage({
 
           return (
             <div
-              className="flex items-stretch"
-              style={{ width: "500px" }}
+              className="flex items-stretch align-middle w-[90vw] md:w-[60vw] xl:w-[40vw]"
               key={statName}
             >
               <h3 className="py-3 w-2/6 md:w-2/4">
                 {statName}: {statValue}
               </h3>
-              <Progress className="w-1/6 sm:w-2/6 md:w-2/4 m-1 md:m-auto" value={statValue} />
+              <Progress
+                className="w-2/6 sm:w-3/6 md:w-2/4 xl:w-3/4 m-auto"
+                value={statValue}
+              />
             </div>
           );
         })}
       </div>
 
-      <div className="mt-8">
+      <div className="mt-8 w-full md:w-auto">
         <RedirectButton />
       </div>
     </>
