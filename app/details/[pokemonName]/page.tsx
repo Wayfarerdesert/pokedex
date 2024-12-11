@@ -23,8 +23,8 @@ export default async function PokemonPage({
           style={{ position: "relative", width: "300px", height: "300px" }}
         >
           <PokemonImage
-            image={pokemonObject.sprites.other["official-artwork"].front_shiny}
-            name={pokemonName + "_shiny"}
+            image={pokemonObject.sprites.other["official-artwork"].front_default}
+            name={pokemonName}
           />
         </div>
 
