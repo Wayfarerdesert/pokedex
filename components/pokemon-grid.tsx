@@ -41,7 +41,7 @@ export function PokemonGrid({
           setAllPokemonList(allPokemons);
           setHasLoadedAll(true);
 
-          const filteredPokemons = allPokemons.filter((pokemon) =>
+          const filteredPokemons = allPokemons.filter((pokemon: Pokemon) =>
             pokemon.name.toLowerCase().includes(lowerCasedSearchText)
           );
           setDisplayedPokemonList(filteredPokemons);
@@ -112,7 +112,7 @@ export function PokemonGrid({
             id="pokemonName"
             placeholder="Pikachu, Charizard, etc."
             onChange={(e) => setSearchText(e.target.value)}
-            disabled={loading}
+            // disabled={loading}
           />
         </div>
 
