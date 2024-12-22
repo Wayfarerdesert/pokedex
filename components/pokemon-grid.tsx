@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { getPokemonList } from "@/lib/pokemonAPI";
+import type {} from "ldrs";
 
 interface Pokemon {
   name: string;
@@ -136,11 +137,18 @@ export function PokemonGrid({
       {!hasLoadedAll && (
         <div className="text-center w-full md:w-auto">
           <button
-            className="group rounded-lg border border-transparent md:m-5 px-5 py-2 transition-colors dark:border-gray-500 dark:bg-gray-800 hover:border-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 dark:hover:border-gray-600 w-full md:w-auto"
+            className="group rounded-lg border border-transparent md:m-5 px-5 py-2 transition-colors dark:border-gray-500 dark:bg-gray-800 hover:border-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 dark:hover:border-gray-600 w-full md:w-auto flex items-center justify-center gap-2"
             onClick={loadMorePokemons}
             disabled={loading}
           >
-            {loading ? "Loading..." : "Load More"}
+            {loading ? (
+              <>
+                <span>Loading</span>
+                <l-dot-pulse size="24" speed="1.3" color="white"></l-dot-pulse>
+              </>
+            ) : (
+              "Load More"
+            )}
           </button>
         </div>
       )}

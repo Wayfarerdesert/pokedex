@@ -29,6 +29,19 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Loader script for the spinner */}
+        <script
+          type="module"
+          defer
+          src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/helix.js"
+        ></script>
+
+        <script
+          type="module"
+          src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/dotPulse.js"
+        ></script>
+
+        {/* Theme provider and main layout */}
         <ThemeProvider attribute="class" defaultTheme="dark">
           <main className="flex min-h-screen flex-col items-center p-12 md:p-24">
             <div className="z-10 w-full max-w-5x1 items-center justify-between text-sm lg:flex">
