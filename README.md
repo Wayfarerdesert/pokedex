@@ -2,6 +2,8 @@
 
 Pokémon Finder is a Next.js application that allows users to search for and view detailed information about various Pokémon. The app fetches data from the Pokémon API and displays a dynamic collection of Pokémon, with search and filtering features for easy navigation.
 
+![Pokémon Finder Screenshot](./public/screenshot.webp)
+
 ## Features
 
 - **Search Pokémon**: Search for Pokémon by name with instant filtering.
