@@ -38,6 +38,7 @@ export default function RootLayout({
 
         <script
           type="module"
+          defer
           src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/dotPulse.js"
         ></script>
 

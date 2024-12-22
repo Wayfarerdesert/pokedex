@@ -1,13 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { getPokemon } from "../../../lib/pokemonAPI";
 import { PokemonImage } from "../../../components/pokemon-image";
 import { Progress } from "@/components/ui/progress";
 import RedirectButton from "@/components/redirect-button";
-import type {} from "ldrs";
-
-import { useEffect, useState } from "react";
+import { PokemonObject } from "@/components/types";
 
 export default function PokemonPage({
   params,
@@ -16,8 +14,8 @@ export default function PokemonPage({
 }) {
   const { pokemonName } = params;
 
-  // State to track loading
-  const [pokemonObject, setPokemonObject] = useState<any>(null);
+  // State to track Pokémon data
+  const [pokemonObject, setPokemonObject] = useState<PokemonObject | null>(null);
 
   // Fetch Pokémon data
   useEffect(() => {
@@ -35,7 +33,7 @@ export default function PokemonPage({
 
   return (
     <>
-      <h1 className="text-4xl text-bold pt-4">
+      <h1 className="text-4xl font-bold pt-4">
         {pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1)}
       </h1>
       <div className="flex flex-col md:flex-row md:justify-between mb-6">
@@ -60,6 +58,7 @@ export default function PokemonPage({
         </div>
 
         <div className="flex flex-col md:flex-row justify-between p-8 m-10 md:pt-12 space-x-10 border rounded-lg shadow-lg w-full max-w-screen-xl mx-auto text-center md:text-left">
+          {/* Basic Details */}
           <div className="flex flex-col space-y-2">
             {pokemonObject ? (
               [
@@ -69,7 +68,7 @@ export default function PokemonPage({
                 {
                   label: "Type",
                   value: pokemonObject.types
-                    .map((typeObj: any) => typeObj.type.name)
+                    .map((typeObj) => typeObj.type.name)
                     .join(", "),
                 },
               ].map((item, index) => (
@@ -85,11 +84,12 @@ export default function PokemonPage({
             )}
           </div>
 
+          {/* Abilities */}
           <div className="flex flex-col mt-6 md:mt-0 space-y-2">
             <h3 className="font-bold text-lg">Abilities</h3>
             <ul className="list-disc pl-3">
               {pokemonObject ? (
-                pokemonObject.abilities.map((abilityObject: any) => {
+                pokemonObject.abilities.map((abilityObject) => {
                   const abilityName = abilityObject.ability.name;
                   const formattedAbilityName =
                     abilityName.charAt(0).toUpperCase() + abilityName.slice(1);
@@ -115,10 +115,11 @@ export default function PokemonPage({
         </div>
       </div>
 
+      {/* Stats */}
       <div className="flex-col mx-auto">
         <h3 className="font-bold text-lg mt-10">Stat List</h3>
         {pokemonObject ? (
-          pokemonObject.stats.map((statObject: any) => {
+          pokemonObject.stats.map((statObject) => {
             const statName = statObject.stat.name;
             const statValue = statObject.base_stat;
 
@@ -145,6 +146,7 @@ export default function PokemonPage({
         )}
       </div>
 
+      {/* Redirect Button */}
       <div className="mt-8 w-full md:w-auto">
         <RedirectButton />
       </div>

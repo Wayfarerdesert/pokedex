@@ -123,7 +123,7 @@ export function PokemonGrid({
       <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 md:grid-cols-2 w-full max-w-screen-xl mx-auto">
         {displayedPokemonList.length > 0 ? (
           displayedPokemonList.map((pokemon) => (
-            <PokemonCard key={pokemon.name} name={pokemon.name} />
+            <PokemonCard key={pokemon.name + "Card"} name={pokemon.name} />
           ))
         ) : (
           <p className="text-center">
